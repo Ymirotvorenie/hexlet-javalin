@@ -18,7 +18,15 @@ public class HelloWorld {
             ctx.result(String.format("Hello, %s!", name));
         });
 
+        app.get("users/{id}/post/{postId}", ctx -> {
+            var id = ctx.pathParam("id");
+            var postId = ctx.pathParam("postId");
+            ctx.result(String.format("User ID: %s, User PostID: %s", id, postId));
+        });
+
+
         app.start(7070); // Стартуем веб-сервер
     }
 }
 
+//users/{id}/post/{postId}
