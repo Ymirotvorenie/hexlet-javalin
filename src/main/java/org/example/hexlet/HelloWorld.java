@@ -35,10 +35,10 @@ public class HelloWorld {
         });
 
         app.get("/courses", ctx -> {
-            var courses = new ArrayList<Course>(List.of(
-                    new Course(1L,"Java", "Backend development"),
-                    new Course(2L,"JavaScript", "Fullstack development"),
-                    new Course(3L,"QA", "Big data development")));
+            var courses = new ArrayList<>(List.of(
+                    new Course(1L, "Java", "Backend development"),
+                    new Course(2L, "JavaScript", "Fullstack development"),
+                    new Course(3L, "QA", "Big data development")));
             var header = "Курсы по программированию";
             var page = new CoursesPage(courses, header);
             ctx.render("courses/index.jte", model("page", page));
