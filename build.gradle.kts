@@ -33,6 +33,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor ("org.projectlombok:lombok:1.18.32")
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+    implementation("org.apache.commons:commons-text:1.12.0")
+
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+
 }
 
 tasks.test {

@@ -9,6 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Course {
+    @Setter
     private Long id;
 
     @ToString.Include
@@ -20,4 +21,10 @@ public class Course {
         this.name = name;
         this.description = description;
     }
+
+    public Course(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 }
