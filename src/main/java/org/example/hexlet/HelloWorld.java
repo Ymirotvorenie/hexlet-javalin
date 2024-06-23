@@ -83,7 +83,7 @@ public class HelloWorld {
             ctx.render("courses/show.jte", model("page", page));
         });
 
-        app.post("/courses/build", ctx -> {
+        app.post("/courses", ctx -> {
             var name = ctx.formParam("name");
             var desc = ctx.formParam("desc");
             var course = new Course(name, desc);

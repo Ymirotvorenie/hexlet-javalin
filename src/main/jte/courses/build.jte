@@ -1,5 +1,5 @@
 @template.layout.page(content = @`
-<form action="/courses/build" method="post">
+<form action="/courses" method="post">
     <div>
         <label for="nameInput">Course name
             <input type="text" name="name" id="nameInput" class="form-control"/>
