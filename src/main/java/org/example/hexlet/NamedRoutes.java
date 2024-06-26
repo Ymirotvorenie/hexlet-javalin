@@ -21,6 +21,11 @@ public class NamedRoutes {
         return userPath(String.valueOf(id));
     }
 
+    //route /users/{id}/edit
+    public static String userEditPath(String id) {
+        return String.format("/users/%s/edit", id);
+    }
+
     //route /courses
     public static String coursesPath() {
         return "/courses";
@@ -36,7 +41,13 @@ public class NamedRoutes {
         return coursePath(String.valueOf(id));
     }
 
+    //route /courses/build
     public static String buildCoursePath() {
         return "/courses/build";
+    }
+
+    //route /courses/{id}/edit
+    public static String courseEditPath(String id) {
+        return String.format("/courses/%s/edit", id);
     }
 }

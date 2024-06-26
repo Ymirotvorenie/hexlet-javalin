@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import io.javalin.http.NotFoundResponse;
 import lombok.Getter;
 import org.example.hexlet.model.Course;
 
@@ -34,5 +35,9 @@ public class CourseRepository {
                 .findAny();
     }
 
+    public static void delete(Long id) {
+        var course = CourseRepository.find(id).orElseThrow(() -> new NotFoundResponse("Course not found"));
+        entities.remove(course);
+    }
 }
 
