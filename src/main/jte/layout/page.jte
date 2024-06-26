@@ -1,4 +1,5 @@
 @import gg.jte.Content
+@import org.example.hexlet.NamedRoutes
 @param Content content
 @param Content footer = null
 
@@ -13,9 +14,13 @@
         <title>Hexlet Javalin Example</title>
     </head>
     <body>
-        <div>
+        <div class="mb-3">
             <p>Educational center Hexlet</p>
-            <a href="/courses">Programming courses</a>
+            <a href="${NamedRoutes.coursesPath()}">Programming courses</a>
+        </div>
+        <div class="mb-3">
+            <p>Hexlet Users</p>
+            <a href="${NamedRoutes.usersPath()}">Users</a>
         </div>
         ${content}
 

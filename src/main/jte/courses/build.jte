@@ -1,13 +1,29 @@
+@import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.dto.courses.BuildCoursePage
+@param BuildCoursePage page
+
 @template.layout.page(content = @`
-<form action="/courses" method="post">
+
+        @if(page.getErrors() != null)
+            <ul>
+                @for(var validator : page.getErrors().values())
+                    @for(var error : validator)
+                        <li>${error.getMessage()}</li>
+                    @endfor
+                @endfor
+            </ul>
+
+        @endif
+
+<form action="${NamedRoutes.coursesPath()}" method="post">
     <div>
-        <label for="nameInput">Course name
-            <input type="text" name="name" id="nameInput" class="form-control"/>
+        <label>Course name
+            <input type="text" name="name" class="form-control" value="${page.getName()}"/>
         </label>
     </div>
     <div>
-        <label for="descInput">Email
-            <input type="text" name="desc" id="descInput" class="form-control"/>
+        <label>Description
+            <input type="text" name="desc" class="form-control" value="${page.getDesc()}"/>
         </label>
     </div>
 
