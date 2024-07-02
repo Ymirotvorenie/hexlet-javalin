@@ -1,25 +1,11 @@
 package org.example.hexlet;
 
 import io.javalin.Javalin;
-import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
-import io.javalin.validation.ValidationException;
 
 import org.example.hexlet.controller.CoursesController;
 import org.example.hexlet.controller.UsersController;
-import org.example.hexlet.dto.courses.BuildCoursePage;
-import org.example.hexlet.dto.courses.CoursePage;
-import org.example.hexlet.dto.courses.CoursesPage;
-import org.example.hexlet.dto.html.HtmlPage;
-import org.example.hexlet.dto.users.BuildUserPage;
-import org.example.hexlet.dto.users.UserPage;
-import org.example.hexlet.dto.users.UsersPage;
-import org.example.hexlet.model.Course;
-import org.example.hexlet.model.User;
-import org.example.hexlet.repository.CourseRepository;
-import org.example.hexlet.repository.UserRepository;
-
-import java.util.ArrayList;
+import org.example.hexlet.dto.MainPage;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
@@ -32,7 +18,12 @@ public class HelloWorld {
             config.fileRenderer(new JavalinJte());
         });
         // Описываем, что загрузится по адресу /
-        app.get("/", ctx -> ctx.render("index.jte"));
+        app.get("/", ctx -> {
+            var visited = Boolean.parseBoolean(ctx.cookie("visited"));
+            var page = new MainPage(visited);
+            ctx.render("index.jte", model("page", page));
+            ctx.cookie("visited", String.valueOf(true));
+        });
 
         //Courses CRUD
         app.get(NamedRoutes.coursesPath(), CoursesController::index);

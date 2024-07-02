@@ -87,7 +87,7 @@ public class CoursesController {
             var course = CourseRepository.find(id).orElseThrow(() -> new NotFoundResponse("User not found"));
             course.setName(checkedName);
             course.setDescription(checkedDesc);
-            CourseRepository.save(course);
+            //CourseRepository.save(course);
             ctx.redirect(NamedRoutes.coursesPath());
         } catch (ValidationException e) {
             var name = ctx.formParam("name");
