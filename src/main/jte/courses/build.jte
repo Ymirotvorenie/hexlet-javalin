@@ -2,7 +2,9 @@
 @import org.example.hexlet.dto.courses.BuildCoursePage
 @param BuildCoursePage page
 
-@template.layout.page(content = @`
+@template.layout.page(
+basePage = page,
+content = @`
 
         @if(page.getErrors() != null)
             <ul>

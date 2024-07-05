@@ -3,6 +3,7 @@
 @param CoursesPage page
 
 @template.layout.page(
+    basePage = page,
     content = @`
     <form action="${NamedRoutes.buildCoursePath()}" method="get">
         <br><br>

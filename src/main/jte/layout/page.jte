@@ -1,7 +1,9 @@
 @import gg.jte.Content
 @import org.example.hexlet.NamedRoutes
+@import org.example.hexlet.dto.BasePage
 @param Content content
 @param Content footer = null
+@param BasePage basePage = null
 
 <!DOCTYPE HTML>
 <html lang="en">
@@ -22,6 +24,13 @@
             <p>Hexlet Users</p>
             <a href="${NamedRoutes.usersPath()}">Users</a>
         </div>
+
+            @if(basePage != null && basePage.getFlash() != null)
+                <div class="alert alert-${basePage.getVariant()}" role="alert">
+                    <p>${basePage.getFlash()}</p>
+                </div>
+            @endif
+
         ${content}
 
         <div>

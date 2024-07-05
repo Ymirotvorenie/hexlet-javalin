@@ -6,8 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class MainPage {
-    private boolean visited;
-    public boolean iszVisited() {
-        return visited;
-    }
+    private String currentUser;
 }

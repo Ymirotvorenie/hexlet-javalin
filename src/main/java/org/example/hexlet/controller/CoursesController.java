@@ -35,6 +35,7 @@ public class CoursesController {
             courses = new ArrayList<>(CourseRepository.getEntities());
             page = new CoursesPage(courses, header);
         }
+        page.setFlash(ctx.consumeSessionAttribute("flash"));
         ctx.render("courses/index.jte", model("page", page));
     }
 
@@ -59,11 +60,15 @@ public class CoursesController {
                     .get();
             var course = new Course(checkedName, checkedDesc);
             CourseRepository.save(course);
+            ctx.sessionAttribute("flash", "Course have been created!");
             ctx.redirect(NamedRoutes.coursesPath());
         } catch (ValidationException e) {
             var name = ctx.formParam("name");
             var description = ctx.formParam("desc");
             var page = new BuildCoursePage(name, description, e.getErrors());
+            ctx.sessionAttribute("flash", "Course don't created!");
+            page.setFlash(ctx.consumeSessionAttribute("flash"));
+            page.setVariant("danger");
             ctx.render("courses/build.jte", model("page", page));
         }
     }

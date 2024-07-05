@@ -50,4 +50,11 @@ public class NamedRoutes {
     public static String courseEditPath(String id) {
         return String.format("/courses/%s/edit", id);
     }
+
+    public static String sessionsPath() {
+        return "/sessions";
+    }
+    public static String buildSessionsPath() {
+        return "/sessions/build";
+    }
 }
