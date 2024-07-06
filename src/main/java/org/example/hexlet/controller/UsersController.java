@@ -10,17 +10,19 @@ import org.example.hexlet.model.User;
 import org.example.hexlet.repository.UserRepository;
 import org.example.hexlet.dto.users.UsersPage;
 
+import java.sql.SQLException;
+
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class UsersController {
-    public static void index(Context ctx) {
+    public static void index(Context ctx) throws SQLException{
         var users = UserRepository.getEntities();
         var page = new UsersPage(users);
 
         ctx.render("users/index.jte", model("page", page));
     }
 
-    public static void show(Context ctx) {
+    public static void show(Context ctx) throws SQLException{
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse(String.format("User with id = %s not found", id)));
@@ -32,7 +34,7 @@ public class UsersController {
         ctx.render("users/build.jte");
     }
 
-    public static void create(Context ctx) {
+    public static void create(Context ctx) throws SQLException {
         var name = ctx.formParam("name");
         var email = ctx.formParam("email");
 
@@ -52,7 +54,7 @@ public class UsersController {
         }
     }
 
-    public static void edit(Context ctx) {
+    public static void edit(Context ctx) throws SQLException{
         var id = ctx.formParamAsClass("id", Long.class).get();
         var user = UserRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse(String.format("User with id = %s not found", id)));
@@ -60,7 +62,7 @@ public class UsersController {
         ctx.render("users/edit.jte", model("page", page));
     }
 
-    public static void update(Context ctx) {
+    public static void update(Context ctx) throws SQLException{
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var name = ctx.formParam("name").trim();
         var email = ctx.formParam("email").trim();
@@ -84,7 +86,7 @@ public class UsersController {
         }
     }
 
-    public static void destroy(Context ctx) {
+    public static void destroy(Context ctx) throws SQLException{
         var id = ctx.pathParamAsClass("id", Long.class).get();
         UserRepository.delete(id);
         ctx.redirect(NamedRoutes.usersPath());

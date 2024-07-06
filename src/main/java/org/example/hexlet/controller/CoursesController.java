@@ -10,12 +10,13 @@ import org.example.hexlet.dto.courses.CoursesPage;
 import org.example.hexlet.model.Course;
 import org.example.hexlet.repository.CourseRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 
 public class CoursesController {
-    public static void index(Context ctx) {
+    public static void index(Context ctx) throws SQLException{
         var courses = new ArrayList<Course>();
         var term = ctx.queryParam("term");
         var desc = ctx.queryParam("desc");
@@ -39,7 +40,7 @@ public class CoursesController {
         ctx.render("courses/index.jte", model("page", page));
     }
 
-    public static void show(Context ctx) {
+    public static void show(Context ctx) throws SQLException{
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var course = CourseRepository.find(id).orElseThrow(() -> new NotFoundResponse("Course not found"));
         var page = new CoursePage(course);
@@ -50,7 +51,7 @@ public class CoursesController {
         ctx.render("courses/build.jte", model("page", new BuildCoursePage()));
     }
 
-    public static void create(Context ctx) {
+    public static void create(Context ctx) throws SQLException{
         try {
             var checkedName = ctx.formParamAsClass("name", String.class)
                     .check(value -> value.length() > 2, "Название курса должно быть более 2 символов")
@@ -73,14 +74,14 @@ public class CoursesController {
         }
     }
 
-    public static void edit(Context ctx) {
+    public static void edit(Context ctx) throws SQLException{
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var course = CourseRepository.find(id).orElseThrow(() -> new NotFoundResponse("Course not found"));
         var page = new CoursePage(course);
         ctx.render("courses/edit.jte", model("page", page));
     }
 
-    public static void update(Context ctx) {
+    public static void update(Context ctx) throws SQLException{
         var id = ctx.pathParamAsClass("id", Long.class).get();
         try {
             var checkedName = ctx.formParamAsClass("name", String.class)
@@ -102,7 +103,7 @@ public class CoursesController {
         }
     }
 
-    public static void destroy(Context ctx) {
+    public static void destroy(Context ctx) throws SQLException {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         CourseRepository.delete(id);
         ctx.redirect(NamedRoutes.coursesPath());
